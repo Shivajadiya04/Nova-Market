@@ -1,0 +1,101 @@
+:root {
+    --color-bg: #f6f7fb;
+    --color-surface: #ffffff;
+    --color-border: #e2e5ee;
+    --color-text: #1d2233;
+    --color-muted: #646b80;
+    --color-primary: #4c4ce0;
+    --color-primary-hover: #3b3bc4;
+    --color-primary-soft: #ececfd;
+    --color-danger: #c92a3a;
+    --color-danger-soft: #fdecee;
+    --color-success: #237a45;
+    --color-success-soft: #e6f5ec;
+    --color-warning: #8a5a00;
+    --color-warning-soft: #fff4dc;
+    --radius: 10px;
+    --radius-small: 6px;
+    --shadow: 0 1px 2px rgba(20, 24, 40, 0.06), 0 4px 16px rgba(20, 24, 40, 0.05);
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-text);
+    background: var(--color-bg);
+}
+
+h1, h2, h3 {
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+}
+
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.2rem; }
+h3 { font-size: 1rem; }
+
+p { margin: 0 0 0.75rem; }
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; display: block; }
+
+button, input, select, textarea {
+    font: inherit;
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 3px solid rgba(76, 76, 224, 0.45);
+    outline-offset: 2px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.muted { color: var(--color-muted); }
+.small { font-size: 0.875rem; }
+.text-error { color: var(--color-danger); }
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.narrow { max-width: 720px; }

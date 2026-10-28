@@ -1,0 +1,13 @@
+{
+  "name": "cohort-microservices",
+  "private": true,
+  "description": "Root helper scripts: each service and the frontend keep their own package.json and can also be run on their own.",
+  "scripts": {
+    "setup": "node scripts/setup-env.js",
+    "install:all": "node scripts/install-all.js",
+    "dev": "node scripts/dev.js",
+    "dev:all": "node scripts/dev.js --all",
+    "test": "node scripts/test-all.js",
+    "smoke": "node scripts/smoke-test.js"
+  }
+}

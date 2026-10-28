@@ -1,0 +1,58 @@
+# Runs on GitHub's servers on every push / pull request: no local tools needed.
+# Installs every package, builds the frontend, runs the existing Jest suites and the
+# end-to-end smoke test against the full stack in mock mode.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Create local .env files (mock mode, random dev secrets)
+        run: node scripts/setup-env.js
+
+      - name: Install dependencies
+        run: node scripts/install-all.js
+
+      - name: Build frontend
+        run: npm run build --prefix frontend
+
+      # The existing suites use mongodb-memory-server (a real mongod), which works on Linux runners.
+      # order/tests/orders/createOrder.test.js is an integration test that needs live cart and
+      # product services sharing its JWT secret, so it is excluded here (the smoke test covers ordering).
+      - name: Jest (auth, product, cart, order)
+        env:
+          NODE_ENV: test
+        run: |
+          (cd auth && npx jest --runInBand)
+          (cd product && npx jest --runInBand)
+          (cd cart && npx jest --runInBand)
+          (cd order && npx jest --runInBand --testPathIgnorePatterns createOrder)
+
+      - name: Start the stack in mock mode
+        run: |
+          node scripts/dev.js > stack.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fs http://localhost:8080/health/services > /dev/null && curl -fs http://localhost:5173 > /dev/null; then
+              echo "stack is up"; exit 0
+            fi
+            sleep 2
+          done
+          echo "stack did not start"; cat stack.log; exit 1
+
+      - name: End-to-end smoke test
+        run: node scripts/smoke-test.js
+
+      - name: Service logs
+        if: always()
+        run: cat stack.log || true

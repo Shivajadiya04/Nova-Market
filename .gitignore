@@ -1,0 +1,26 @@
+# Local environment files hold secrets; only the .env.example templates are committed
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules
+dist
+coverage
+
+# Logs and temporary files
+*.log
+logs
+tmp
+.tmp
+.cache
+.vite
+
+# Editor / OS files
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Downloaded MongoDB binary used by the Jest suites (mongodb-memory-server)
+.mongodb-binaries

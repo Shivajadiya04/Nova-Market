@@ -1,0 +1,22 @@
+{
+  "name": "gateway",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Public entry point: serves the built React app and proxies /api/* to the private backend services",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cookie": "^1.0.2",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "http-proxy-middleware": "^3.0.5"
+  }
+}
